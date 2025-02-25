@@ -1,0 +1,803 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>COVID 19 Data exploration </title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="7e73a540-1a0b-4e2d-9702-4e66a793128c" class="page sans"><header><img class="page-cover-image" src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-4.0.3&amp;q=85&amp;fm=jpg&amp;crop=entropy&amp;cs=srgb" style="object-position:center 50%"/><h1 class="page-title">COVID 19 Data exploration </h1><p class="page-description"></p></header><div class="page-body"><h2 id="3cabedc8-d7de-4305-98cf-68a093457fb6" class="">Introduction</h2><p id="8f2bd8c3-f1f0-4784-8970-37e860bee3ab" class="">This project was created for practicing and demonstrating data exploration techniques with SQL using Azure Data Studio. Originally inspired by Alex’s Data Analyst Bootcamp, I took advantage of my previous experience with Google’s Big Query to explore a new database management tool.<br/><br/>*Note that the Data Analyst Bootcamp was more of refresher for me than a fresh start, so I didn’t follow Alex’s instruction but rather took the assignment as a stand-alone personal project.<br/></p><h2 id="f6af533d-0227-4030-b93f-448dfd2ec0b5" class="">Data</h2><p id="e711f995-db35-4f21-9e19-f28e7158d708" class="">The data used in this project is open-sourced and publicly available at <a href="http://ourworldindata.org/">OurWorldInData.org</a>. </p><p id="ebbd34e7-ffcf-40dc-8b00-f4ada80d86a2" class=""><strong>Citation</strong>: Edouard Mathieu, Hannah Ritchie, Lucas Rodés-Guirao, Cameron Appel, Charlie Giattino, Joe Hasell, Bobbie Macdonald, Saloni Dattani, Diana Beltekian, Esteban Ortiz-Ospina and Max Roser (2020) - &quot;Coronavirus Pandemic (COVID-19)&quot;. Published online at <a href="http://ourworldindata.org/">OurWorldInData.org</a>. Retrieved from: &#x27;<a href="https://ourworldindata.org/coronavirus">https://ourworldindata.org/coronavirus</a>&#x27; [Online Resource]</p><h3 id="9e672871-1ca9-482c-a7a1-a311bfd43654" class="">Tools</h3><ul id="b0461a2a-23ea-4b4a-a7ec-26f4eff404fc" class="bulleted-list"><li style="list-style-type:disc">Azure Data Studio</li></ul><h2 id="5faf7e2c-58eb-45a2-808c-dc5b8e93fdf8" class="">Queries</h2><h3 id="74d025de-685c-415f-a47c-d67a62108456" class="">Number of recorded cases vs confirmed deaths</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="6fb7b7bb-0f0d-4b39-a862-034bd889ea1d" class="code"><code class="language-SQL">SELECT
+	location,
+	continent,
+	MAX(total_cases) as recorded_cases,
+	MAX(total_deaths) as confirmed_deaths,
+	FORMAT(MAX(total_deaths) /MAX(total_cases), &#x27;P&#x27;) as mortality_rate
+FROM
+	COVID19..CovidDeaths
+GROUP BY
+	location,
+	continent
+HAVING
+	continent is not NULL
+ORDER BY
+	recorded_cases DESC</code></pre><table id="bda59122-0706-4a1b-a723-09b6390cde31" class="simple-table"><tbody><tr id="d7c9ab3a-8534-4cbc-b764-7ecf7d40a3a0"><td id="b[}M" class="" style="width:103px">location</td><td id="wF}M" class="" style="width:109.32500457763672px">continent</td><td id="v:TL" class="" style="width:113.1500015258789px">recorded_cases</td><td id="VbwB" class="" style="width:128.9749984741211px">confirmed_deaths</td><td id=";S;|" class="" style="width:104.1624984741211px">mortality_rate</td></tr><tr id="f7ada910-33d5-4461-aeb4-d18ef2bf8f71"><td id="b[}M" class="" style="width:103px">United States</td><td id="wF}M" class="" style="width:109.32500457763672px">North America</td><td id="v:TL" class="" style="width:113.1500015258789px">32346971</td><td id="VbwB" class="" style="width:128.9749984741211px">576232</td><td id=";S;|" class="" style="width:104.1624984741211px">1.78%</td></tr><tr id="0524c89e-a3fb-4b50-9a2a-0cad31ec684e"><td id="b[}M" class="" style="width:103px">India</td><td id="wF}M" class="" style="width:109.32500457763672px">Asia</td><td id="v:TL" class="" style="width:113.1500015258789px">19164969</td><td id="VbwB" class="" style="width:128.9749984741211px">211853</td><td id=";S;|" class="" style="width:104.1624984741211px">1.11%</td></tr><tr id="39b70ed4-7a68-4f69-92a2-fffd933da935"><td id="b[}M" class="" style="width:103px">Brazil</td><td id="wF}M" class="" style="width:109.32500457763672px">South America</td><td id="v:TL" class="" style="width:113.1500015258789px">14659011</td><td id="VbwB" class="" style="width:128.9749984741211px">403781</td><td id=";S;|" class="" style="width:104.1624984741211px">2.75%</td></tr><tr id="00dc5449-1f16-4f33-b123-e0f20af39b3c"><td id="b[}M" class="" style="width:103px">France</td><td id="wF}M" class="" style="width:109.32500457763672px">Europe</td><td id="v:TL" class="" style="width:113.1500015258789px">5677835</td><td id="VbwB" class="" style="width:128.9749984741211px">104675</td><td id=";S;|" class="" style="width:104.1624984741211px">1.84%</td></tr><tr id="36856776-90d2-41b7-b73d-6266c58b78d3"><td id="b[}M" class="" style="width:103px">Turkey</td><td id="wF}M" class="" style="width:109.32500457763672px">Asia</td><td id="v:TL" class="" style="width:113.1500015258789px">4820591</td><td id="VbwB" class="" style="width:128.9749984741211px">40131</td><td id=";S;|" class="" style="width:104.1624984741211px">0.83%</td></tr><tr id="25925d29-a44c-4487-9c86-a66ca33a2cc2"><td id="b[}M" class="" style="width:103px">Russia</td><td id="wF}M" class="" style="width:109.32500457763672px">Europe</td><td id="v:TL" class="" style="width:113.1500015258789px">4750755</td><td id="VbwB" class="" style="width:128.9749984741211px">108290</td><td id=";S;|" class="" style="width:104.1624984741211px">2.28%</td></tr><tr id="3f0ff05a-6242-4ce8-b0c5-834db9a2e211"><td id="b[}M" class="" style="width:103px">…</td><td id="wF}M" class="" style="width:109.32500457763672px">…</td><td id="v:TL" class="" style="width:113.1500015258789px">…</td><td id="VbwB" class="" style="width:128.9749984741211px">…</td><td id=";S;|" class="" style="width:104.1624984741211px">…</td></tr></tbody></table><h3 id="169a6e68-a9f5-4ee1-96d7-3380ce1aef7c" class=""><strong>Percentage of affected population</strong></h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="b6e4ac47-d3fc-47fa-8086-ea864ee0627f" class="code"><code class="language-SQL">
+-- a subquery to clear out world and continents rows 
+WITH temp_covid_data as ( 
+SELECT 
+  *
+FROM 
+  COVID19.dbo.CovidDeaths
+WHERE   
+  continent is not NULL
+)
+SELECT 
+  location,
+  MAX(population) population,
+  MAX(total_cases) recorded_cases,
+  FORMAT(MAX(total_cases)/MAX(population), &#x27;P&#x27;) as affected_percentage
+FROM 
+  temp_covid_data
+GROUP BY 
+  population,
+  location
+HAVING 
+  population is not NULL 
+  AND 
+  MAX(total_cases) is not NULL
+ORDER BY 
+  MAX(total_cases)/MAX(population) DESC
+-- the FORMAT clause changed the datatype of the column into nvarchar 
+-- to display the &quot;%&quot; sign so I wrote a different metric to sort them.</code></pre><table id="bebdb8ff-0d9c-42d8-99e6-223d331328f6" class="simple-table"><tbody><tr id="69c81685-c3b5-4285-9a45-4848a44c1a5d"><td id="}Rlk" class="">location</td><td id="ZQe|" class="">population</td><td id="}int" class="">recorded_cases</td><td id="&lt;ZwR" class="">affected_percentage</td></tr><tr id="bab46d2e-e8fe-45e8-a5af-c7eb85f710b4"><td id="}Rlk" class="">Andorra</td><td id="ZQe|" class="">77265</td><td id="}int" class="">13232</td><td id="&lt;ZwR" class="">17.13%</td></tr><tr id="ea326df9-1c91-488d-8804-ca5605d3891e"><td id="}Rlk" class="">Montenegro</td><td id="ZQe|" class="">628062</td><td id="}int" class="">97389</td><td id="&lt;ZwR" class="">15.51%</td></tr><tr id="358ee97d-3abb-4d6e-b284-906aa2951764"><td id="}Rlk" class="">Czechia</td><td id="ZQe|" class="">10708982</td><td id="}int" class="">1630758</td><td id="&lt;ZwR" class="">15.23%</td></tr><tr id="fa244512-a5bd-4501-8d8e-5c873cfa5340"><td id="}Rlk" class="">San Marino</td><td id="ZQe|" class="">33938</td><td id="}int" class="">5066</td><td id="&lt;ZwR" class="">14.93%</td></tr><tr id="12c893f6-6287-40d4-ab51-ebf47e398a20"><td id="}Rlk" class="">Serbia</td><td id="ZQe|" class="">6804596</td><td id="}int" class="">689557</td><td id="&lt;ZwR" class="">10.13%</td></tr><tr id="214829e4-226d-45f8-b40a-761f96b747a6"><td id="}Rlk" class="">…</td><td id="ZQe|" class="">…</td><td id="}int" class="">…</td><td id="&lt;ZwR" class="">…</td></tr></tbody></table><p id="80a38393-6f0a-4db5-8104-85ef23466b05" class="">We can also combine these queries to make a comprehensive table about affected percentage and mortality rate. Let’s pretend that I wanted to get all of these information but specifically about Asia:  </p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="4e1a1551-0946-45b0-9842-293805b366fa" class="code"><code class="language-SQL">WITH temp_covid_data as ( 
+SELECT 
+    *
+FROM 
+    COVID19.dbo.CovidDeaths
+WHERE   
+    continent is not NULL
+    AND 
+    continent = &#x27;Asia&#x27;
+)
+SELECT 
+    location,
+    MAX(population) population,
+    MAX(total_cases) recorded_cases,
+    MAX(total_deaths) confirmed_deaths,
+    FORMAT(MAX(total_cases)/MAX(population), &#x27;P&#x27;) affected_percentage,
+    FORMAT(MAX(total_deaths) /MAX(total_cases), &#x27;P&#x27;) mortality_rate
+FROM 
+    temp_covid_data
+GROUP BY 
+    population,
+    location
+HAVING 
+    population is not NULL 
+    AND 
+    MAX(total_cases) is not NULL
+ORDER BY 
+    population DESC
+</code></pre><table id="bc7c40a8-987b-4080-ab12-d1c5bc4f0aaa" class="simple-table"><tbody><tr id="bbc114c4-5bda-4949-9b96-65f295a84388"><td id="Omdl" class="">location</td><td id="d\EQ" class="">population</td><td id="zY~u" class="">recorded_cases</td><td id="GBuR" class="">confirmed_deaths</td><td id="R;TY" class="">affected_percentage</td><td id="[_FG" class="">mortality_rate</td></tr><tr id="1084038f-e9dd-4fbc-8731-9edf8c6fe49c"><td id="Omdl" class="">China</td><td id="d\EQ" class="">1439323774</td><td id="zY~u" class="">102494</td><td id="GBuR" class="">4845</td><td id="R;TY" class="">0.01%</td><td id="[_FG" class="">4.73%</td></tr><tr id="a684fb39-59dd-4f3e-9e0d-2b3f3e43ac4b"><td id="Omdl" class="">India</td><td id="d\EQ" class="">1380004385</td><td id="zY~u" class="">19164969</td><td id="GBuR" class="">211853</td><td id="R;TY" class="">1.39%</td><td id="[_FG" class="">1.11%</td></tr><tr id="a38d36ec-523c-4f17-8c99-c584a2fe563e"><td id="Omdl" class="">Indonesia</td><td id="d\EQ" class="">273523621</td><td id="zY~u" class="">1668368</td><td id="GBuR" class="">45521</td><td id="R;TY" class="">0.61%</td><td id="[_FG" class="">2.73%</td></tr><tr id="f5f49e08-6e78-4444-ac07-8826ce527a21"><td id="Omdl" class="">…</td><td id="d\EQ" class="">…</td><td id="zY~u" class="">…</td><td id="GBuR" class="">…</td><td id="R;TY" class="">…</td><td id="[_FG" class="">…</td></tr></tbody></table><h3 id="83ae3987-3639-4ade-9dea-0d7ff199b23a" class=""><strong>Vaccination rate</strong></h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="9ebdc448-b694-42ed-8ecf-b063b5993d8d" class="code"><code class="language-SQL">SELECT 
+  cvd.location,
+  MAX(population) population,
+  MAX(people_vaccinated) vaccinated,
+  FORMAT(CAST(MAX(people_vaccinated) as float)/MAX(population), &#x27;P&#x27;)
+	  as vaccine_coverage_rate
+-- added a column to calculate the vaccinated percentage
+FROM 
+  COVID19..CovidDeaths cvd 
+  LEFT JOIN
+      COVID19..CovidVaccinations cvv
+  ON 
+      cvd.location = cvv.location
+GROUP BY 
+  cvd.location
+ORDER BY 
+  CAST(MAX(people_vaccinated) as float)/MAX(population) DESC
+-- a metric to set the table&#x27;s order   </code></pre><table id="806b3c51-fd45-430c-b3a8-7f51613f4632" class="simple-table"><tbody><tr id="394760f0-36c0-4370-abec-fc3897338bf1"><td id="@j{r" class="">location</td><td id="gQbp" class="">population</td><td id="Svfs" class="">vaccinated</td><td id="pL}q" class="">vaccine_coverage_rate</td></tr><tr id="142c13ff-77f8-4f99-8f6d-0daa8a0fa0a6"><td id="@j{r" class="">Falkland Islands</td><td id="gQbp" class="">3483</td><td id="Svfs" class="">2632</td><td id="pL}q" class="">75.57%</td></tr><tr id="8d604a0a-3f86-4c62-a997-5aef303ed283"><td id="@j{r" class="">Aruba</td><td id="gQbp" class="">106766</td><td id="Svfs" class="">54306</td><td id="pL}q" class="">50.86%</td></tr><tr id="6023421a-4b46-424f-80ec-ec5e6a8f2efb"><td id="@j{r" class="">Curacao</td><td id="gQbp" class="">164100</td><td id="Svfs" class="">72248</td><td id="pL}q" class="">44.03%</td></tr><tr id="c8ddc47a-be3d-421e-9b6d-a71bd810fcf9"><td id="@j{r" class="">Anguilla</td><td id="gQbp" class="">15002</td><td id="Svfs" class="">6115</td><td id="pL}q" class="">40.76%</td></tr><tr id="fa77cb4e-f6b4-4a4c-a244-c5e6f6b91531"><td id="@j{r" class="">Antigua and Barbuda</td><td id="gQbp" class="">97928</td><td id="Svfs" class="">29754</td><td id="pL}q" class="">30.38%</td></tr><tr id="18816f66-35b6-4ff9-8483-b4112bf01c15"><td id="@j{r" class="">Gibraltar</td><td id="gQbp" class="">33691</td><td id="Svfs" class="">9807</td><td id="pL}q" class="">29.11%</td></tr><tr id="503e003b-3073-45c0-9e56-946ed4c9475a"><td id="@j{r" class="">European Union</td><td id="gQbp" class="">444919060</td><td id="Svfs" class="">97871560</td><td id="pL}q" class="">22.00%</td></tr><tr id="fc21ab8d-9b26-4762-966a-78d18d8a9eb1"><td id="@j{r" class="">Faeroe Islands</td><td id="gQbp" class="">48865</td><td id="Svfs" class="">9641</td><td id="pL}q" class="">19.73%</td></tr><tr id="4ba2a35c-b1e1-49e5-9d3f-4c5c3a6e0ef0"><td id="@j{r" class="">Finland</td><td id="gQbp" class="">5540718</td><td id="Svfs" class="">993227</td><td id="pL}q" class="">17.93%</td></tr><tr id="cfc0bfca-8bf8-4777-a933-646d9b844254"><td id="@j{r" class="">Denmark</td><td id="gQbp" class="">5792203</td><td id="Svfs" class="">995264</td><td id="pL}q" class="">17.18%</td></tr><tr id="4a7bb81f-785b-4c4b-b32b-2ec82b866a42"><td id="@j{r" class="">Greenland</td><td id="gQbp" class="">56772</td><td id="Svfs" class="">8867</td><td id="pL}q" class="">15.62%</td></tr><tr id="0285dc33-739a-4ebb-aecd-cb38728a71d0"><td id="@j{r" class="">Cayman Islands</td><td id="gQbp" class="">65720</td><td id="Svfs" class="">9783</td><td id="pL}q" class="">14.89%</td></tr><tr id="7a96337b-b2f0-4cce-9884-028d53a0bf61"><td id="@j{r" class="">Bermuda</td><td id="gQbp" class="">62273</td><td id="Svfs" class="">8400</td><td id="pL}q" class="">13.49%</td></tr><tr id="1763baa3-bb5b-4de9-8e22-538a758def26"><td id="@j{r" class="">Europe</td><td id="gQbp" class="">748680069</td><td id="Svfs" class="">99696137</td><td id="pL}q" class="">13.32%</td></tr><tr id="b5f12071-c3c4-4d06-82fd-67a792954892"><td id="@j{r" class="">…</td><td id="gQbp" class="">…</td><td id="Svfs" class="">…</td><td id="pL}q" class="">…</td></tr></tbody></table><h3 id="eca93513-7f15-4bc5-8184-c04be40b6718" class="">Vaccination rate vs Mortality rate </h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="385ea0be-c413-44ac-a648-9de075b09ac9" class="code"><code class="language-SQL">
+ WITH temp_data as (
+    SELECT
+        cvd.location as location,
+        cvd.continent as continent,
+        cvd.population as population,
+        cvd.total_cases as total_cases,
+        cvd.total_deaths as total_deaths,
+        cvv.people_vaccinated as vaccinated
+    FROM 
+        COVID19..CovidDeaths cvd 
+        LEFT JOIN
+            COVID19..CovidVaccinations cvv
+        ON 
+            cvd.location = cvv.location
+    WHERE 
+        cvd.continent is not NULL
+        AND 
+        cvv.people_vaccinated is not NULL
+ )
+ SELECT
+    location,
+    continent,
+    MAX(population) population,
+    MAX(vaccinated) vaccinated,
+    ROUND(MAX(total_cases)/MAx(population) * 100, 2) 
+	    as affected_rate,
+    ROUND(CAST(MAX(vaccinated) as float)/MAX(population)*100, 2) 
+	    as vaccine_coverage_rate,
+    ROUND(MAX(total_deaths)/MAX(total_cases)*100, 2)
+	    as mortality_rate
+ FROM 
+    temp_data
+ GROUP BY 
+    location,
+    continent
+ HAVING 
+    MAX(total_deaths)/MAX(total_cases) is not NULL
+ ORDER BY 
+    ROUND(CAST(MAX(vaccinated) as float)/MAX(population)*100, 2)</code></pre><table id="f32a8792-d991-4ce6-8f1d-8f292dfcde67" class="simple-table"><tbody><tr id="98d09a77-a438-42d7-851d-980b4f11306f"><td id="zrbp" class="" style="width:117.71250915527344px">location</td><td id="bsW\" class="" style="width:109.32500457763672px">continent</td><td id="`&gt;=J" class="" style="width:86.36250305175781px">population</td><td id="ENXl" class="" style="width:84.51250457763672px">vaccinated</td><td id="]@i{" class="" style="width:98.86250305175781px">affected_rate</td><td id="Pejz" class="" style="width:90.33750915527344px">vaccine_coverage_rate</td><td id="OW\T" class="">mortality_rate</td></tr><tr id="a1bdb160-2e62-4c3b-90a3-6d9efaaa360c"><td id="zrbp" class="" style="width:117.71250915527344px">Democratic Republic of Congo</td><td id="bsW\" class="" style="width:109.32500457763672px">Africa</td><td id="`&gt;=J" class="" style="width:86.36250305175781px">89561404</td><td id="ENXl" class="" style="width:84.51250457763672px">1700</td><td id="]@i{" class="" style="width:98.86250305175781px">0,03</td><td id="Pejz" class="" style="width:90.33750915527344px">0</td><td id="OW\T" class="">2,57</td></tr><tr id="ceec8ddf-2505-4bf9-9f81-8c83fd73f03d"><td id="zrbp" class="" style="width:117.71250915527344px">Cameroon</td><td id="bsW\" class="" style="width:109.32500457763672px">Africa</td><td id="`&gt;=J" class="" style="width:86.36250305175781px">26545864</td><td id="ENXl" class="" style="width:84.51250457763672px">400</td><td id="]@i{" class="" style="width:98.86250305175781px">0,27</td><td id="Pejz" class="" style="width:90.33750915527344px">0</td><td id="OW\T" class="">1,53</td></tr><tr id="72271f86-c032-4fdd-8445-cb2a75eca9d1"><td id="zrbp" class="" style="width:117.71250915527344px">Armenia</td><td id="bsW\" class="" style="width:109.32500457763672px">Asia</td><td id="`&gt;=J" class="" style="width:86.36250305175781px">2963234</td><td id="ENXl" class="" style="width:84.51250457763672px">565</td><td id="]@i{" class="" style="width:98.86250305175781px">7,29</td><td id="Pejz" class="" style="width:90.33750915527344px">0,02</td><td id="OW\T" class="">1,9</td></tr><tr id="eee3e7b8-ccf7-4b87-bc19-e2f3e9b2ea20"><td id="zrbp" class="" style="width:117.71250915527344px">Afghanistan</td><td id="bsW\" class="" style="width:109.32500457763672px">Asia</td><td id="`&gt;=J" class="" style="width:86.36250305175781px">38928341</td><td id="ENXl" class="" style="width:84.51250457763672px">8200</td><td id="]@i{" class="" style="width:98.86250305175781px">0,15</td><td id="Pejz" class="" style="width:90.33750915527344px">0,02</td><td id="OW\T" class="">4,39</td></tr><tr id="b8f93fdc-a801-4c13-b065-4c5b45a90710"><td id="zrbp" class="" style="width:117.71250915527344px">Albania</td><td id="bsW\" class="" style="width:109.32500457763672px">Europe</td><td id="`&gt;=J" class="" style="width:86.36250305175781px">2877800</td><td id="ENXl" class="" style="width:84.51250457763672px">689</td><td id="]@i{" class="" style="width:98.86250305175781px">4,56</td><td id="Pejz" class="" style="width:90.33750915527344px">0,02</td><td id="OW\T" class="">1,83</td></tr><tr id="736b8890-eb86-4beb-88e3-c40efb96ec4c"><td id="zrbp" class="" style="width:117.71250915527344px">Chile</td><td id="bsW\" class="" style="width:109.32500457763672px">South America</td><td id="`&gt;=J" class="" style="width:86.36250305175781px">19116209</td><td id="ENXl" class="" style="width:84.51250457763672px">9054</td><td id="]@i{" class="" style="width:98.86250305175781px">6,27</td><td id="Pejz" class="" style="width:90.33750915527344px">0,05</td><td id="OW\T" class="">2,2</td></tr><tr id="dbb5131e-971a-4769-9707-40555e41e0c0"><td id="zrbp" class="" style="width:117.71250915527344px">Brunei</td><td id="bsW\" class="" style="width:109.32500457763672px">Asia</td><td id="`&gt;=J" class="" style="width:86.36250305175781px">437483</td><td id="ENXl" class="" style="width:84.51250457763672px">340</td><td id="]@i{" class="" style="width:98.86250305175781px">0,05</td><td id="Pejz" class="" style="width:90.33750915527344px">0,08</td><td id="OW\T" class="">1,34</td></tr><tr id="9642329a-e283-4c81-b274-86ae2e188365"><td id="zrbp" class="" style="width:117.71250915527344px">France</td><td id="bsW\" class="" style="width:109.32500457763672px">Europe</td><td id="`&gt;=J" class="" style="width:86.36250305175781px">68147687</td><td id="ENXl" class="" style="width:84.51250457763672px">99473</td><td id="]@i{" class="" style="width:98.86250305175781px">8,33</td><td id="Pejz" class="" style="width:90.33750915527344px">0,15</td><td id="OW\T" class="">1,84</td></tr><tr id="95e5e1f8-ccdb-4145-b97f-f092033f426b"><td id="zrbp" class="" style="width:117.71250915527344px">Georgia</td><td id="bsW\" class="" style="width:109.32500457763672px">Asia</td><td id="`&gt;=J" class="" style="width:86.36250305175781px">3989175</td><td id="ENXl" class="" style="width:84.51250457763672px">7822</td><td id="]@i{" class="" style="width:98.86250305175781px">7,78</td><td id="Pejz" class="" style="width:90.33750915527344px">0,2</td><td id="OW\T" class="">1,32</td></tr><tr id="3cd4f1eb-18bc-44a0-b736-b83edec30c94"><td id="zrbp" class="" style="width:117.71250915527344px">Gambia</td><td id="bsW\" class="" style="width:109.32500457763672px">Africa</td><td id="`&gt;=J" class="" style="width:86.36250305175781px">2416664</td><td id="ENXl" class="" style="width:84.51250457763672px">5345</td><td id="]@i{" class="" style="width:98.86250305175781px">0,24</td><td id="Pejz" class="" style="width:90.33750915527344px">0,22</td><td id="OW\T" class="">2,95</td></tr><tr id="42e5f01b-ceea-47a4-9c1a-bde1714983bf"><td id="zrbp" class="" style="width:117.71250915527344px">Belize</td><td id="bsW\" class="" style="width:109.32500457763672px">North America</td><td id="`&gt;=J" class="" style="width:86.36250305175781px">397621</td><td id="ENXl" class="" style="width:84.51250457763672px">996</td><td id="]@i{" class="" style="width:98.86250305175781px">3,19</td><td id="Pejz" class="" style="width:90.33750915527344px">0,25</td><td id="OW\T" class="">2,55</td></tr><tr id="761487d9-7748-4acc-9d16-967041f63d9e"><td id="zrbp" class="" style="width:117.71250915527344px">Angola</td><td id="bsW\" class="" style="width:109.32500457763672px">Africa</td><td id="`&gt;=J" class="" style="width:86.36250305175781px">32866268</td><td id="ENXl" class="" style="width:84.51250457763672px">87022</td><td id="]@i{" class="" style="width:98.86250305175781px">0,08</td><td id="Pejz" class="" style="width:90.33750915527344px">0,26</td><td id="OW\T" class="">2,24</td></tr><tr id="b8262494-cfa2-4ea3-aedd-f3d3457769c2"><td id="zrbp" class="" style="width:117.71250915527344px">…</td><td id="bsW\" class="" style="width:109.32500457763672px">…</td><td id="`&gt;=J" class="" style="width:86.36250305175781px">…</td><td id="ENXl" class="" style="width:84.51250457763672px">…</td><td id="]@i{" class="" style="width:98.86250305175781px">…</td><td id="Pejz" class="" style="width:90.33750915527344px">…</td><td id="OW\T" class="">…</td></tr></tbody></table><p id="4ce58f13-53df-4aa2-82f5-8ad4fc99432f" class="">A complimentary visualization made with SandDance add-ons: </p><figure id="a46ba503-ce91-459f-a64e-64549f937eb2" class="image"><a href="COVID%2019%20Data%20exploration%207e73a5401a0b4e2d97024e66a793128c/Untitled.png"><img style="width:720px" src="COVID%2019%20Data%20exploration%207e73a5401a0b4e2d97024e66a793128c/Untitled.png"/></a></figure><p id="a1475f5b-c9d5-4407-88bc-d12d43de792c" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
