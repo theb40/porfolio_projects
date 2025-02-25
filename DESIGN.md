@@ -2,8 +2,6 @@
 
 By Phan The Bao
 
-Video overview: <URL [HERE](https://youtu.be/jguOQotWv_A)>
-
 ## Scope
 
 This database is designed to help Dungeon Master and players keep track of characters that are participating in a "Dungeon and Dragon" (DnD) campaign.
