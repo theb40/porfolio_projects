@@ -1,0 +1,678 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Google Data Analytics Capstone Project </title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="8cf774d6-ed87-4301-8858-6d531160d2ed" class="page sans"><header><img class="page-cover-image" src="https://images.unsplash.com/photo-1579547621309-5e57ab324182?ixlib=rb-4.0.3&amp;q=85&amp;fm=jpg&amp;crop=entropy&amp;cs=srgb" style="object-position:center 50%"/><h1 class="page-title">Google Data Analytics Capstone Project </h1><p class="page-description"></p></header><div class="page-body"><h1 id="0b76c5eb-888a-4f10-87fb-8e622510521b" class="">Business case</h1><h2 id="bceeb2fc-db45-44e8-b7bc-b728701a74a1" class=""><mark class="highlight-purple">Background</mark></h2><p id="56f22fc5-daaa-437b-86f4-4e0062153706" class="">In 2016, Cyclistic launched a successful bike-share offering. Since then, the program has grown to a fleet of 5,824 bicycles that are geo-tracked and locked into a network of 692 stations across Chicago. The bikes can be unlocked from one station and returned to any other station in the system anytime. </p><p id="a0f0a148-f453-439c-929d-2ced82984502" class="">Until now, Cyclistic’s marketing strategy relied on building general awareness and appealing to broad consumer segments. One approach that helped make these things possible was the flexibility of its pricing plans: single-ride passes, full-day passes, and annual memberships. Customers who purchase single-ride or full-day passes are referred to as casual riders. Customers who purchase annual memberships are Cyclistic members. </p><p id="c74a89d0-656a-4cbf-ba68-fc91a3b2c816" class="">Cyclistic’s finance analysts have concluded that annual members are much more profitable than casual riders. Although the pricing flexibility helps Cyclistic attract more customers, the head of marketing believes that maximizing the number of annual members will be key to future growth. Rather than creating a marketing campaign that targets all-new customers, they also believe there is a solid opportunity to convert casual riders into members. </p><h2 id="4983df79-072a-46e9-b081-5f9d88f9c191" class=""><mark class="highlight-purple">Key problem</mark></h2><p id="aeb9191a-7b4a-4b29-b477-0866939d8185" class="">Identify the key differences between casual bike users and annual members that can potentially fuel a marketing plan that aimed to convert casual user into members. </p><h2 id="d8a82764-692e-4fc9-ae4a-c9fd9dd428c7" class="">Stakeholder</h2><p id="dc32abe7-c39f-4097-807b-69535df317d6" class=""><mark class="highlight-purple"><strong>Cyclistic’s Marketing team</strong></mark><strong>: </strong>responsible for the upcoming marketing campaign and is affected directly by the result of this analysis. </p><p id="bf1843f3-5434-4068-b598-91f90af3b65e" class=""><mark class="highlight-purple"><strong>Cyclistic’s Executive team</strong></mark>: the sponsor of this project.</p><h1 id="632f9acc-b5b8-4901-b44d-bff2f9b619b8" class="">Data source</h1><h2 id="03aa832f-1cb7-497a-bc37-7646c54e21b7" class="">Description</h2><p id="c565561d-4b45-472e-b273-2e9b1ce476f3" class="">The datasets contains Cyclistic’s historical trip data of 2023</p><p id="da21e224-3e07-4af5-967e-a3ee3abc7532" class=""><mark class="highlight-purple"><strong>Note:</strong></mark> The datasets have a different name because Cyclistic is a fictional company. For the purposes of this case study, the datasets are appropriate to answer the business questions. The data has been made available by Motivate International Inc. under this<a href="https://www.divvybikes.com/data-license-agreement"> </a><mark class="highlight-purple"><a href="https://www.divvybikes.com/data-license-agreement">license</a></mark>.</p><h2 id="499e43df-25a5-40d7-a97a-bbbb9fe56639" class="">Storage and management</h2><p id="c4cb171d-7461-4ba1-a8e0-051fd346accd" class="">A local Microsoft SQL server was set up in order to organize, store and perform the analysis on the dataset which came in the form of 12 CSV files. SQL Server Management Studio (SSMS) was used to import data into the server, while Azure Data Studio was used for data manipulation, cleaning and other analytical tasks. </p><h2 id="423e646f-6fbb-4174-bb10-a76db6e7546f" class="">Tools</h2><ul id="f3527fb7-828d-46fa-9703-a5fc3eaa57c7" class="bulleted-list"><li style="list-style-type:disc">Microsoft SQL server: Data storage and management</li></ul><ul id="9d698ed3-70a0-48c9-8110-853943981880" class="bulleted-list"><li style="list-style-type:disc">SQL Server Management Studio: Importing data </li></ul><ul id="00983287-a0c9-45b4-86cc-a561f40f805e" class="bulleted-list"><li style="list-style-type:disc">Azure Data Studio: Data analysis</li></ul><ul id="7f7eeaac-54ff-40ce-8f5c-aac5ccc67e76" class="bulleted-list"><li style="list-style-type:disc">Tableau Public: Data visualization</li></ul><h1 id="d7346397-4a58-4f86-9488-1f755447548b" class="">Data cleaning and manipulating</h1><figure id="099e45e6-3b51-4ba0-8e3c-ac0366fc6cfc" class="block-color-purple_background link-to-page"><a href="Google%20Data%20Analytics%20Capstone%20Project%208cf774d6ed87430188586d531160d2ed/Data%20cleaning%20document%20099e45e63b514ba08e3cac0366fc6cfc.html"><span class="icon">🔗</span>Data cleaning document</a></figure><h2 id="7e9a2d56-73ad-4895-a7cc-5f1e02e77156" class=""><mark class="highlight-purple">Summary</mark></h2><ul id="4cea5f02-2a50-469f-9e60-420f3b395ffb" class="bulleted-list"><li style="list-style-type:disc">Aggregated data from 12 CSV files into a single table.</li></ul><ul id="0699b18e-d3a0-473e-bc33-5122d28907df" class="bulleted-list"><li style="list-style-type:disc">Dropped all entries that came from repair stations or warehouses. </li></ul><ul id="c60776d7-ba07-4fc1-9708-1c73e123de9b" class="bulleted-list"><li style="list-style-type:disc">Made a table that only contains the coordinates of every bike station based off average longitude and latitude.</li></ul><ul id="a54ab04b-1fb4-49ae-b216-ee41a156f9d8" class="bulleted-list"><li style="list-style-type:disc">Dropped all entries with backward ride time. </li></ul><h1 id="d447b419-c92c-4d9d-b37d-3b194961b383" class="">Analysis</h1><figure id="397112b0-d198-405f-b19f-cb11a13d7d8b" class="block-color-purple_background link-to-page"><a href="Google%20Data%20Analytics%20Capstone%20Project%208cf774d6ed87430188586d531160d2ed/Analytical%20queries%20document%20397112b0d198405fb19fcb11a13d7d8b.html"><span class="icon">🔗</span>Analytical queries document</a></figure><h2 id="3eb6702c-b426-4b6c-9f91-aa5d8f3202fc" class=""><mark class="highlight-purple">Summary</mark></h2><p id="232668c7-30f6-42ab-849a-ca54aa6c07a8" class="">Key findings of this analysis: </p><ul id="02a12edf-fa70-4d86-a725-86ec77f6337a" class="bulleted-list"><li style="list-style-type:disc">The number of bike rides was strongly correlated with Chicago’s seasons, especially summer and fall.</li></ul><ul id="d586f9e8-97d8-4515-9c7c-94ea6eea7d6f" class="bulleted-list"><li style="list-style-type:disc">Most casual riders enjoyed the entertainment purposes of Cyclistic’s service and preferred weekend bike trip.</li></ul><ul id="01357741-d021-4699-955f-907a80376c7d" class="bulleted-list"><li style="list-style-type:disc">There was a clear preference for coastal bike stations among casual riders. </li></ul><h2 id="043f001a-6094-4081-8a3c-93a52f4265de" class="">Time differences </h2><h3 id="2846a125-e7f2-41e1-b603-6e9c23f26cb1" class=""><mark class="highlight-purple">Monthly</mark></h3><p id="b6e45c40-d46b-4f75-8e4c-1327877e2864" class="">The data strongly suggested a seasonal aspect in the number of bike rides. While there was a fluctuation among the subscribed demographic, it was much more prominent that casual riders favored those months of summer and fall. Provided that the number of rides from non-member customers doubled between March and April and kept growing afterward, which is highly correlated with the warm and less rainy season of Chicago, a marketing campaign tailored for this specific timeframe should prove its effectiveness easily. </p><figure id="6dace383-5f87-4d59-9cbe-be24bc370c34" class="image"><a href="Google%20Data%20Analytics%20Capstone%20Project%208cf774d6ed87430188586d531160d2ed/Untitled.png"><img style="width:816px" src="Google%20Data%20Analytics%20Capstone%20Project%208cf774d6ed87430188586d531160d2ed/Untitled.png"/></a></figure><h3 id="5d6855bc-0a6a-4cfc-ade0-a03481fc8277" class=""><mark class="highlight-purple">Weekly and daily</mark></h3><p id="9cd0a63a-fe5d-4cda-894a-5f9326a01630" class="">A clear trend can be spotted from both charts provided that most subscribed riders use Cyclistic’s services for their daily mobility needs. The slight decrease in the number of rides toward the weekend and the peaks in the daily data apparently confirms this information. On the contrary, the increase in the number of casual rides toward the weekend and the end of a working day’s hour commends the possibility that most non-subscribers enjoyed bike riding as a form of entertainment. </p><figure id="80a792d3-1626-458d-99d4-83172904434a" class="image"><a href="Google%20Data%20Analytics%20Capstone%20Project%208cf774d6ed87430188586d531160d2ed/Untitled%201.png"><img style="width:816px" src="Google%20Data%20Analytics%20Capstone%20Project%208cf774d6ed87430188586d531160d2ed/Untitled%201.png"/></a></figure><figure id="29d0e903-017e-4668-b3df-7fe55a6a8326" class="image"><a href="Google%20Data%20Analytics%20Capstone%20Project%208cf774d6ed87430188586d531160d2ed/Untitled%202.png"><img style="width:816px" src="Google%20Data%20Analytics%20Capstone%20Project%208cf774d6ed87430188586d531160d2ed/Untitled%202.png"/></a></figure><p id="30ad124f-1beb-4d17-b6eb-2f30675672ff" class="">This suggestion can also be backed up by the average bike ride’s length, which showed that casual riders tended to go on longer trips on Sunday. A weekend-based subscription service is highly recommend based off this particular insight. </p><figure id="7c0c9396-4be6-4c9c-ac8f-cfaf08c76868" class="image"><a href="Google%20Data%20Analytics%20Capstone%20Project%208cf774d6ed87430188586d531160d2ed/Untitled%203.png"><img style="width:720px" src="Google%20Data%20Analytics%20Capstone%20Project%208cf774d6ed87430188586d531160d2ed/Untitled%203.png"/></a></figure><h2 id="3a080ec5-043c-42c9-b604-866734f29ff8" class="">Station preference </h2><h3 id="480f3e04-71a8-4165-b6f1-8e4a0492379b" class=""><mark class="highlight-purple">Popular station</mark></h3><p id="52ef9479-9be8-4025-9333-6e00b309b723" class="">Through data visualization, a new insight was made obvious. While members of Cyclistic’s service enjoyed the convenience of a widespread bike station system, most casual riders have a clear preference for coastal side stations. This further proved the entertainment purpose of occasional bike trips and strongly suggested the initiation of some marketing strategies toward this beachside-enjoying demographic. </p><figure id="53494cbb-547c-41fb-8c5a-f57c43886ce9" class="image"><a href="Google%20Data%20Analytics%20Capstone%20Project%208cf774d6ed87430188586d531160d2ed/Untitled%204.png"><img style="width:816px" src="Google%20Data%20Analytics%20Capstone%20Project%208cf774d6ed87430188586d531160d2ed/Untitled%204.png"/></a></figure><h1 id="baf43672-a292-477b-b9d0-ec21b45e2fe6" class="">Recommendation</h1><h2 id="e8e076d5-b3bf-4347-988d-d07fd756951b" class=""><mark class="highlight-purple">New subscription service: Season pass and weekend pass</mark></h2><p id="caa23a6d-51c0-46c2-bc27-d3a2135f53a5" class="">With the apparent preference for more enjoyable seasons like summer and fall, it is viable to launch a new type of subscription service that caters specifically for people who enjoy bike riding only in this timeframe. The same recommendation can be made for weekend riders. </p><p id="21bb3343-1795-452b-a5b1-4387ccb45ace" class="">New services may include: </p><ul id="a0fc13de-b2ab-4cf5-996c-ae8832c10db3" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-purple"><strong>Seasonal pass</strong></mark>: A three-month subscription</li></ul><ul id="6f3712a2-7d5f-458e-8800-526612fe355e" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-purple"><strong>Weekend pass</strong></mark>:  A two-day subscription </li></ul><h2 id="59d70c3b-3e90-4902-ae17-fa0a8366cf27" class=""><mark class="highlight-purple">New direction for marketing</mark></h2><p id="ee375668-52dd-420d-ac62-cb837a424f11" class="">The newly founded insight from the analysis strongly suggests a new marketing direction which may fulfill the entertainment needs of casual riders. The marketing strategy may also target or based around coastal stations customer demographic. </p><p id="3c7a15ba-14a1-41f3-8132-73965f6d8912" class="">Some recommended marketing themes: </p><ul id="c73b9114-e3b9-4bbb-887d-eaf5b33b1076" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-purple">Summer time</mark>: base around summer activities and the “sportiness” of the season.</li></ul><ul id="b8d1b16a-3e61-439d-a414-34b83f195b9e" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-purple">Beachside</mark>: may focus on beachside activities and the enjoyment of coastal atmosphere.</li></ul><h2 id="1423abee-5273-474e-9c41-2dc0192ce771" class=""><mark class="highlight-purple">New target demographic</mark></h2><p id="257d67a4-f838-4cc4-9059-f38d578b6688" class="">The previous targeted demographic was all about the general audience, which was highly effective in spreading the brand’s name. However, it is highly viable for <strong><mark class="highlight-purple">further investigation</mark></strong> <mark class="highlight-purple"><strong>and analysis</strong></mark> to narrow down to a more specific demographic that may enjoy bike riding in the weekend and along the coastal side of Chicago. </p><p id="26ce7c73-9c3b-40c0-b42e-d636c71d3197" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
