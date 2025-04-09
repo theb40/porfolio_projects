@@ -10,4 +10,4 @@ Both of these projects were created at the beginning of my journey as a data ana
 #### [COVID 19 data exploration](https://theb40.github.io/COVID%2019%20Data%20exploration%207e73a5401a0b4e2d97024e66a793128c.html)
 
 ## Other Python/C problem sets' solutions:
-I'm currently working on a web application project with an integrated data pipeline using Python(Flask + PySpark), and looking forward to publish it this summer, 2025. In the meantime, my experience in Python and C can be proven with my solutions to various course-related problem sets, but due to course's academic honesty policy, they can not be published. If you are interested in me as a potential candidate, I am willing to provide them privately through email: **theb40hcm@gmail.com**. My sincere apology for the inconvinience.
+I'm currently working on a web application project with an integrated data pipeline using Python(Flask + PySpark), and looking forward to publish it this summer, 2025. 
